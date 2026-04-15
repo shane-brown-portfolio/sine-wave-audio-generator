@@ -11,16 +11,31 @@
 */
 
 #include <iostream>
+#include <vector>
 #include <cmath>
+using namespace std;
+
+const int SAMPLE_RATE = 48000;
+const double FREQUENCY = 440.0;
+const double DURATION = 1.0;
+
+vector<double> generateSine(double amplitude);
 
 int main() {
-    const int sampleRate = 48000; // samples per second
-    const double frequency = 440.0; // frequency of the sine wave in Hz
-    const double amplitude = 8192.0; // amplitude of the sine wave (¼ of max 16-bit value)
-    const int durationInSeconds = 1; // duration of the audio in seconds
-    const int channels = 1; // mono
-
-
+    vector<double> samples = generateSine(0.25);
+    cout << "Generated " << samples.size() << " samples\n";
 
     return 0;
+}
+
+vector<double> generateSine(double amplitude) {
+    int totalSamples = SAMPLE_RATE * DURATION;
+    vector<double> samples(totalSamples);
+
+    for (int i = 0; i < totalSamples; i++) {
+        double t = static_cast<double>(i) / SAMPLE_RATE;
+        samples[i] = amplitude * sin(2 * M_PI * FREQUENCY * t);
+    }
+
+    return samples;
 }
