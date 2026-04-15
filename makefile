@@ -27,4 +27,4 @@ TAR_FILE = ${LOGNAME}_sine-wave-audio-generator.tar.gz
 
 tar: clean
 	rm -f $(TAR_FILE)
-	tar cvfa $(TAR_FILE) *.cpp Makefile README.md
+	tar cvfa $(TAR_FILE) *.cpp [mM]akefile README.md
