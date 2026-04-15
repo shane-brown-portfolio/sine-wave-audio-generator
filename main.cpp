@@ -28,7 +28,7 @@ const double DURATION = 1.0;
 vector<double> generateSine(double amplitude);
 void writeWav(const string& filename, const vector<double>& samples);
 vector<double> clip(const vector<double>& input);
-void playAudio(const std::vector<double>& samples);
+void playAudio(const vector<double>& samples);
 
 int main() {
     cout << "Generating sine wave samples...\n";
@@ -107,7 +107,7 @@ vector<double> clip(const vector<double>& input) {
     return output;
 }
 
-void playAudio(const std::vector<double>& samples) {
+void playAudio(const vector<double>& samples) {
     PaError err;
 
     err = Pa_Initialize();
