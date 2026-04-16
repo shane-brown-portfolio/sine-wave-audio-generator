@@ -86,7 +86,7 @@ This creates a flat-topped waveform which introduces distortion similar to a bas
 ## How It Went
 To generate wave file output, libsndfile worked well as it required minimal setup when writing 16-bit PCM files. PortAudio took more effort to figure out, as it requires opening a stream and writing samples in blocking mode. Initially, the audio would fail due to the program being run in my WSL environment which does not have an audio device. I was able to fix this by running the program directly on Windows using MSYS2 which immediately detected my audio device to play the clipped wave. Additionally, I was able to verify that my sine wave and clipped wave files were generated correctly by opening them in Audacity and visually inspecting the waveforms. The sine wave had a nice smooth curve, while the clipped wave had flat tops and bottoms as expected.
 
-## Still to Be Done
+## Still To Be Done
 - Allow frequency, amplitude, and duration to be set via command-line arguments so the program can be used without recompilation
 - Improve error handling for audio playback so the program reports a clear message when no output device is available instead of relying on confusing PortAudio messages
 - Add support for visualizing the waveforms so the sine and clipped waves can be inspected without opening an external tool like Audacity
