@@ -1,5 +1,5 @@
 # Sine Wave Audio Generator
-This project generates and processes digital audio using C++. It demonstrates how to create audio samples programmatically, write them to WAV files, apply signal clipping, and play audio directly through the system’s output.
+This project generates and processes digital audio using C++. It demonstrates how to create audio samples programmatically, write them to WAV files, apply signal clipping, and play audio directly through the system's output.
 
 The program performs the following tasks each time it runs:
 
@@ -14,8 +14,10 @@ The program performs the following tasks each time it runs:
 - Plays audio in real time using PortAudio
 
 ## Audio Specifications
+
 ### Sine Wave (`sine.wav`)
 - Channels: 1 (mono)
+- Sample format: 16-bit signed PCM
 - Amplitude: ¼ of maximum (±8192 in 16-bit, normalized to ±0.25)
 - Duration: 1 second
 - Frequency: 440 Hz
@@ -23,16 +25,16 @@ The program performs the following tasks each time it runs:
 
 ### Clipped Wave (`clipped.wav`)
 - Generated at ½ amplitude (±16384 in 16-bit, normalized to ±0.5)
-- Clipped to ¼ amplitude (±8192 in 16-bit, normalized to ±0.25)
-- Demonstrates hard clipping distortion
+- Hard-clipped to ¼ amplitude (±8192 in 16-bit, normalized to ±0.25)
 
 ## Build Instructions
+
 ### Requirements
 - C++ compiler (g++)
 - libsndfile
 - PortAudio
 
-### Install dependencies (Ubuntu/WSL)
+### Install dependencies (Ubuntu/Debian/WSL)
 ```
 sudo apt update
 sudo apt install libsndfile1-dev portaudio19-dev
@@ -81,13 +83,11 @@ Clipping is applied by limiting the amplitude range:
 
 This creates a flat-topped waveform which introduces distortion similar to a basic fuzz effect.
 
-## What I Learned
-- How to generate sine waves mathematically
-- How digital audio is represented as discrete samples
-- How clipping can affect waveforms and audio signals
-- How external libraries can be used for audio I/O
+## How It Went
+To generate wave file output, libsndfile worked well as it required minimal setup when writing 16-bit PCM files. PortAudio took more effort to figure out, as it requires opening a stream and writing samples in blocking mode. Initially, the audio would fail due to the program being run in my WSL environment which does not have an audio device. I was able to fix this by running the program directly on Windows using MSYS2 which immediately detected my audio device to play the clipped wave. Additionally, I was able to verify that my sine wave and clipped wave files were generated correctly by opening them in Audacity and visually inspecting the waveforms. The sine wave had a nice smooth curve, while the clipped wave had flat tops and bottoms as expected.
 
-## Future Improvements
-- Allow configurable frequency and duration from command-line arguments
-- Improve audio device selection handling
-- Add libraries to visualize the sine waves
+## Still to Be Done
+- Allow frequency, amplitude, and duration to be set via command-line arguments so the program can be used without recompilation
+- Improve error handling for audio playback so the program reports a clear message when no output device is available instead of relying on confusing PortAudio messages
+- Add support for visualizing the waveforms so the sine and clipped waves can be inspected without opening an external tool like Audacity
+- Explore generating other types of waveforms and applying other clipping shapes beyond the symmetrical hard clip
